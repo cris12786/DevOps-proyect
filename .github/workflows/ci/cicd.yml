@@ -46,4 +46,16 @@ jobs:
 
       - name: Push imagen
         run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-app:latest
+        
+      - name: Deploy en VM
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/devops-app:latest
+            docker stop flask_app || true
+            docker rm flask_app || true
+            docker run -d -p 5000:5000 --name flask_app ${{ secrets.DOCKER_USERNAME }}/devops-app:latest
 
