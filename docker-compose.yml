@@ -18,7 +18,7 @@ services:
     depends_on:
       - db
     environment:
-      DB_HOST: devops-app.cz8aao2uqrg8.mx-central-1.rds.amazonaws.com
+      DB_HOST: devops-bd.cz8aao2uqrg8.mx-central-1.rds.amazonaws.com
       DB_NAME: devops_app
       DB_USER: devuser
       DB_PASSWORD: devpass
